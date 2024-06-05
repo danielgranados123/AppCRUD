@@ -9,25 +9,9 @@
     tools:context=".activity_bienvenido">
 
     <TextView
-        android:id="@+id/txtHelpDesk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
-        android:text="HelpDesk"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.649" />
-
-    <TextView
         android:id="@+id/txtHelpDeskDescripcion"
-        android:layout_width="259dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="68dp"
+        android:layout_width="316dp"
+        android:layout_height="68dp"
         android:fontFamily="@font/poppins_medium"
         android:text="¡La App que soluciona tus dilemas técnicos con más destreza que un ninja en la red!"
         android:textAlignment="center"
@@ -35,41 +19,60 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtHelpDesk"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.704" />
+
+    <TextView
+        android:id="@+id/txtHelpDesk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="HelpDesk"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.621" />
 
     <Button
         android:id="@+id/txtRegistrarme"
         android:layout_width="209dp"
         android:layout_height="58dp"
-        android:layout_marginBottom="84dp"
         android:backgroundTint="@color/gray"
         android:fontFamily="@font/poppins_bold"
         android:paddingStart="45dp"
         android:text="Registrarme"
         android:textColor="@color/white"
-        android:textSize="18dp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.811"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.762"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.858" />
 
     <Button
         android:id="@+id/btnIngresar"
         android:layout_width="162dp"
         android:layout_height="58dp"
         android:layout_marginStart="40dp"
-        android:layout_marginBottom="84dp"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/poppins_bold"
         android:text="Ingresar"
         android:textColor="@color/black"
-        android:textSize="18dp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/txtRegistrarme"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.858" />
 
     <ImageView
         android:id="@+id/imageView5"
