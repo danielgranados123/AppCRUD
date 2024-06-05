@@ -41,7 +41,7 @@
         app:layout_constraintVertical_bias="0.621" />
 
     <Button
-        android:id="@+id/txtRegistrarme"
+        android:id="@+id/btnRegistrarmeBienvenida"
         android:layout_width="209dp"
         android:layout_height="58dp"
         android:backgroundTint="@color/gray"
@@ -68,7 +68,7 @@
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/txtRegistrarme"
+        app:layout_constraintEnd_toStartOf="@+id/btnRegistrarmeBienvenida"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

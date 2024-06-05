@@ -26,5 +26,11 @@ class activity_bienvenido : AppCompatActivity() {
             startActivity(intent)
         }
 
+        //Boton para ir al registro
+        val btnRegistrar = findViewById<Button>(R.id.btnRegistrarmeBienvenida)
+        btnRegistrar.setOnClickListener {
+            val intent = Intent(this, activity_registrarse::class.java)
+            startActivity(intent)
+        }
     }
 }

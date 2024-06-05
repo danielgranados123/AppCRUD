@@ -49,12 +49,12 @@
 
     <TextView
         android:id="@+id/txtHeyHolaDeNuevo"
-        android:layout_width="204dp"
-        android:layout_height="76dp"
+        android:layout_width="206dp"
+        android:layout_height="104dp"
         android:fontFamily="@font/poppins_bold"
         android:text="¡Hola\nde nuevo!"
         android:textColor="@color/white"
-        android:textSize="25sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.227"

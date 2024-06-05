@@ -5,6 +5,179 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".activity_registrarse">
 
+    <TextView
+        android:id="@+id/txtBienvenidoRegistrarse"
+        android:layout_width="205dp"
+        android:layout_height="102dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="¡Hora de empezar!"
+        android:textAlignment="viewStart"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.227"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.158" />
+
+    <ImageView
+        android:id="@+id/imgRegresarBienvenida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/txtBienvenidoRegistrarse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.54"
+        app:srcCompat="@drawable/ic_return" />
+
+    <EditText
+        android:id="@+id/txtConfirmarContrasenaRegistrarse"
+        android:layout_width="317dp"
+        android:layout_height="59dp"
+        android:background="@drawable/ic_fondo_username"
+        android:ems="10"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="Confirmar Contraseña"
+        android:inputType="textPassword"
+        android:paddingHorizontal="20dp"
+        android:paddingStart="60dp"
+        android:paddingTop="5dp"
+        android:textColor="@color/gray2"
+        android:textColorHint="@color/gray2"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.638" />
+
+    <EditText
+        android:id="@+id/txtContrasenaRegistrarse"
+        android:layout_width="317dp"
+        android:layout_height="59dp"
+        android:background="@drawable/ic_fondo_username"
+        android:ems="10"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:paddingHorizontal="20dp"
+        android:paddingStart="60dp"
+        android:paddingTop="5dp"
+        android:textColor="@color/gray2"
+        android:textColorHint="@color/gray2"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txtUsuarioRegistrarse"
+        android:layout_width="317dp"
+        android:layout_height="59dp"
+        android:background="@drawable/ic_fondo_username"
+        android:ems="10"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="Usuario"
+        android:inputType="text"
+        android:paddingHorizontal="20dp"
+        android:paddingStart="60dp"
+        android:paddingTop="5dp"
+        android:textColor="@color/gray2"
+        android:textColorHint="@color/gray2"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.36" />
+
+    <Button
+        android:id="@+id/btnRegistrarme"
+
+        android:layout_width="314dp"
+        android:layout_height="59dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/gray2"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Registrarme"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtConfirmarContrasenaRegistrarse"
+        app:layout_constraintVertical_bias="0.211" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="62dp"
+        android:layout_height="37dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txtConfirmarContrasenaRegistrarse"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txtConfirmarContrasenaRegistrarse"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.635"
+        app:srcCompat="@drawable/ic_password" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="70dp"
+        android:layout_height="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txtUsuarioRegistrarse"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txtUsuarioRegistrarse"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.366"
+        app:srcCompat="@drawable/ic_username" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="62dp"
+        android:layout_height="38dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txtContrasenaRegistrarse"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txtContrasenaRegistrarse"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_password" />
+
+    <TextView
+        android:id="@+id/txtIngresarRegistrarme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Ingresar"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtYaCuentaRegistrar"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/txtYaCuentaRegistrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="¿Ya tienes una cuenta?"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRegistrarme"
+        app:layout_constraintVertical_bias="0.353" />
 </androidx.constraintlayout.widget.ConstraintLayout>
