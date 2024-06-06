@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                 val claseConexion = ClaseConexion().cadenaConexion()
 
                 //2- Crear variable que contenga un PreparedStatement
-                val addProducto = claseConexion?.prepareStatement("insert into tbTickets(uuid, nombreAutor, emailAutor, titulo, descripcion) values(?, ?, ?, ?)")!!
+                val addProducto = claseConexion?.prepareStatement("insert into tbTickets(numTicket, titulo, descripcion, autor, emailAutor, fechaCreacion, estado, fechaFinalizacion) values(?, ?, ?, ?, ?, ?, ?, ?)")!!
 
                 addProducto.setString(1, UUID.randomUUID().toString())
                 addProducto.setString(2, txtNombreAutor.text.toString())

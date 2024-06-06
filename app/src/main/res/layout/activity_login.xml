@@ -86,14 +86,14 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="61dp"
-        android:layout_height="35dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="65dp"
+        android:layout_height="42dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtContrasenaLogin"
         app:layout_constraintEnd_toEndOf="@+id/txtContrasenaLogin"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/txtContrasenaLogin"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499"
+        app:layout_constraintTop_toTopOf="@+id/txtContrasenaLogin"
+        app:layout_constraintVertical_bias="0.357"
         app:srcCompat="@drawable/ic_password" />
 
     <ImageView
