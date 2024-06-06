@@ -22,8 +22,11 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
     }
 
     override fun getItemCount() = Datos.size
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val titulo = Datos[position]
         holder.textView.text = titulo.titulo
     }
+
+
 }
