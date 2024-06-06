@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import modelo.ClaseConexion
 import java.util.UUID
 
@@ -42,46 +43,52 @@ class activity_registrarse : AppCompatActivity() {
         }
 
         //Codigo para crear nuevo usuario
-        val btnRegistrar = findViewById<Button>(R.id.btnRegistrarme)
-        btnRegistrar.setOnClickListener {
-
-            val txtUsuario = findViewById<EditText>(R.id.txtUsuarioRegistrarse).text.toString()
-            val txtContrasena = findViewById<EditText>(R.id.txtContrasenaRegistrarse).text.toString()
-            val txtConfirmarContrasena = findViewById<EditText>(R.id.txtConfirmarContrasenaRegistrarse).text.toString()
-
-            if (txtContrasena == txtConfirmarContrasena) {
-            // Establecer la conexión con la base de datos
-            val claseConexion = ClaseConexion().cadenaConexion()
+            val txtUsuario = findViewById<EditText>(R.id.txtUsuarioRegistrarse)
+            val txtContrasena = findViewById<EditText>(R.id.txtContrasenaRegistrarse)
+            val txtConfirmarContrasena = findViewById<EditText>(R.id.txtConfirmarContrasenaRegistrarse)
+            val btnRegistrar = findViewById<Button>(R.id.btnRegistrarme)
 
 
-            if (claseConexion != null) {
-                try {
-            //Crear variable que contenga un PreparedStatement
-            val addUsuario = claseConexion?.prepareStatement("insert into tbUsuarios(uuidUsuario, idTipo, nombre, contrasena) values(?, ?, ?, ?)")!!
+            btnRegistrar.setOnClickListener {
+                //TODO: Boton para crear la cuenta//
 
-            addUsuario.setString(1, UUID.randomUUID().toString())
-            addUsuario.setString(2, txtUsuario.text.toString())
-            addUsuario.setString(3, txtContrasena.text.toString())
-            addUsuario.setInt(4, 1)
-            addUsuario.executeUpdate()
+                GlobalScope.launch(Dispatchers.IO) {
+                    //Creo un objeto de la clase conexion
+                    val objConexion = ClaseConexion().cadenaConexion()
 
-                    // Mostrar un mensaje de éxito
-                    Toast.makeText(this, "¡Te has registrado con éxito!", Toast.LENGTH_SHORT).show()
-                } catch (e: Exception) {
-                    // Mostrar el error
-                    Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+                    if (txtContrasena == txtConfirmarContrasena) {
+                        //Creo una variable que contenga un PrepareStatement
+                        val crearUsuario =
+                            objConexion?.prepareStatement("INSERT INTO tbUsuarios (UUID_usuario, correoElectronico, clave) VALUES (?, ?, ?)")!!
+                        crearUsuario.setString(1, UUID.randomUUID().toString())
+                        crearUsuario.setString(2, txtUsuario.text.toString())
+                        crearUsuario.setString(3, txtContrasena.text.toString())
+                        crearUsuario.executeUpdate()
+
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                this@activity_registrarse,
+                                "Usuario creado con éxito",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            txtUsuario.setText("")
+                            txtContrasena.setText("")
+                            txtConfirmarContrasena.setText("")
+                        }
+                    }
+                    else{
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                this@activity_registrarse,
+                                "Las contraseñas no coinciden.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                        }
                 }
-            } else {
-                Toast.makeText(this, "No se pudo completar la acción.", Toast.LENGTH_LONG).show()
-            }
-            } else {
-                AlertDialog.Builder(this)
-                    .setTitle("Error")
-                    .setMessage("Las contraseñas no coinciden")
-                    .setPositiveButton(android.R.string.ok) { _, _ -> }
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show()
+
             }
         }
+
         }
     }
