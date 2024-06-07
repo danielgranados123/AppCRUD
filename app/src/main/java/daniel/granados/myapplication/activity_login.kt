@@ -42,7 +42,7 @@ class activity_login : AppCompatActivity() {
         val  txtPasswordLogin = findViewById<EditText>(R.id.txtContrasenaLogin)
 
         val btnIngresar = findViewById<Button>(R.id.btnIngresarLogin)
-            btnIngresar.setOnClickListener{
+            btnIngresar.setOnClickListener {
             //preparo el intent para cambiar a la pantalla de bienvenida
             val pantallaPrincipal = Intent(this, MainActivity::class.java)
             //Dentro de una corrutina hago un select en la base de datos

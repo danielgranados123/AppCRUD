@@ -1,5 +1,6 @@
 package daniel.granados.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -10,7 +11,6 @@ import androidx.core.view.WindowInsetsCompat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import modelo.ClaseConexion
 import java.util.UUID
 
@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         val txtEmailAutor = findViewById<EditText>(R.id.txtEmailAutor)
         val txtTitulo = findViewById<EditText>(R.id.txtTitulo)
         val txtDescripcion = findViewById<EditText>(R.id.txtDescripcion)
+        val txtFechaCreacion = findViewById<EditText>(R.id.txtFechaCreacion)
+        val txtFechaFinalizacion = findViewById<EditText>(R.id.txtFechaFinalizacion)
         val btnEnviar = findViewById<Button>(R.id.btnEnviar)
 
         btnEnviar.setOnClickListener {
@@ -46,7 +48,12 @@ class MainActivity : AppCompatActivity() {
                 addProducto.setString(3, txtEmailAutor.text.toString())
                 addProducto.setString( 4, txtTitulo.text.toString())
                 addProducto.setString( 5, txtDescripcion.text.toString())
+                addProducto.setString( 6, txtFechaCreacion.text.toString())
+                addProducto.setString( 7, txtDescripcion.text.toString())
+                addProducto.setString( 8, txtFechaFinalizacion.text.toString())
                 addProducto.executeUpdate()
+                }
+
 
                 //val nuevosProductos = obtenerDatos()
                 //creo una corrutina que actualice el listado
@@ -56,6 +63,11 @@ class MainActivity : AppCompatActivity() {
 
                 }
 
+        val btnVerSolicitudes = findViewById<Button>(R.id.btnVerSolicitudes)
+        btnVerSolicitudes.setOnClickListener {
+
+            val intent = Intent(this, activity_solicitudes::class.java)
+            startActivity(intent)
             }
         }
 
