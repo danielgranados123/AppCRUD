@@ -13,7 +13,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import modelo.ClaseConexion
 import java.util.UUID
-
+import java.util.Date
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         val txtTitulo = findViewById<EditText>(R.id.txtTitulo)
         val txtDescripcion = findViewById<EditText>(R.id.txtDescripcion)
         val txtFechaCreacion = findViewById<EditText>(R.id.txtFechaCreacion)
+        val txtEstado = findViewById<EditText>(R.id.txtEstado)
         val txtFechaFinalizacion = findViewById<EditText>(R.id.txtFechaFinalizacion)
         val btnEnviar = findViewById<Button>(R.id.btnEnviar)
 
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                 addProducto.setString( 5, txtDescripcion.text.toString())
                 addProducto.setString( 6, txtFechaCreacion.text.toString())
                 addProducto.setString( 7, txtDescripcion.text.toString())
-                addProducto.setString( 8, txtFechaFinalizacion.text.toString())
+                addProducto.setString( 8, txtEstado.text.toString())
                 addProducto.executeUpdate()
                 }
 
