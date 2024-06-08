@@ -49,46 +49,44 @@ class activity_registrarse : AppCompatActivity() {
             val btnRegistrar = findViewById<Button>(R.id.btnRegistrarme)
 
 
-            btnRegistrar.setOnClickListener {
-                //TODO: Boton para crear la cuenta//
-
+        btnRegistrar.setOnClickListener {
+            //Confirma que el usuario no se equivoque de contraseña, ya que compara ambos datos ingresados
+            if (txtContrasena.text.toString() != txtConfirmarContrasena.text.toString()) {
+                txtUsuario.setText("")
+                txtContrasena.setText("")
+                txtConfirmarContrasena.setText("")
+                Toast.makeText(
+                    this@activity_registrarse,
+                    "Las contraseñas no coinciden.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                // Si esta bien, deja crear el usuario
                 GlobalScope.launch(Dispatchers.IO) {
-                    //Creo un objeto de la clase conexion
+
                     val objConexion = ClaseConexion().cadenaConexion()
 
-                    //if (txtContrasena == txtConfirmarContrasena) {
-                        //Creo una variable que contenga un PrepareStatement
-                        val crearUsuario =
-                            objConexion?.prepareStatement("INSERT INTO tbUsuarios (UUID_usuario, correoElectronico, clave) VALUES (?, ?, ?)")!!
-                        crearUsuario.setString(1, UUID.randomUUID().toString())
-                        crearUsuario.setString(2, txtUsuario.text.toString())
-                        crearUsuario.setString(3, txtContrasena.text.toString())
-                        crearUsuario.executeUpdate()
 
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(
-                                this@activity_registrarse,
-                                "Usuario creado con éxito",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            txtUsuario.setText("")
-                            txtContrasena.setText("")
-                            txtConfirmarContrasena.setText("")
-                        }
-                    //}
-                    //else{
-                        //withContext(Dispatchers.Main) {
-                            //Toast.makeText(
-                                //this@activity_registrarse,
-                               // "Las contraseñas no coinciden.",
-                               // Toast.LENGTH_SHORT
-                            //).show()
+                    val crearUsuario =
+                        objConexion?.prepareStatement("INSERT INTO tbUsuarios (UUID_usuario, correoElectronico, clave) VALUES (?, ?, ?)")!!
+                    crearUsuario.setString(1, UUID.randomUUID().toString())
+                    crearUsuario.setString(2, txtUsuario.text.toString())
+                    crearUsuario.setString(3, txtContrasena.text.toString())
+                    crearUsuario.executeUpdate()
 
-                        //}
-               // }
-
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            this@activity_registrarse,
+                            "Usuario creado con éxito",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        txtUsuario.setText("")
+                        txtContrasena.setText("")
+                        txtConfirmarContrasena.setText("")
+                    }
+                }
             }
         }
-
-        }
     }
+}
+

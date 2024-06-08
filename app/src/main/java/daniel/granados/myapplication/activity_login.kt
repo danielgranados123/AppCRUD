@@ -65,8 +65,11 @@ class activity_login : AppCompatActivity() {
                 if (resultado.next()) {
                     startActivity(pantallaPrincipal)
                 } else {
+
+                    //Si el usuario no existe, hago que se limpien los campos y que aparezca la alerta de que las credenciales son inválidas.
                     withContext(Dispatchers.Main) {
-                        
+                        txtCorreoLogin.text.clear()
+                        txtPasswordLogin.text.clear()
                         Toast.makeText(this@activity_login, "El usuario o la contraseña son incorrectos.", Toast.LENGTH_LONG).show()
                 }
                 }

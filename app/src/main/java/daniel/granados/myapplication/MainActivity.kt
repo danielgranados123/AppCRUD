@@ -51,8 +51,8 @@ class MainActivity : AppCompatActivity() {
                 addTicket.setString( 4, txtTitulo.text.toString())
                 addTicket.setString( 5, txtDescripcion.text.toString())
                 addTicket.setString( 6, txtFechaCreacion.text.toString())
-                addTicket.setString( 7, txtDescripcion.text.toString())
-                addTicket.setString( 8, txtEstado.text.toString())
+                addTicket.setString( 7, txtEstado.text.toString())
+                addTicket.setString( 8, txtFechaFinalizacion.text.toString())
                 addTicket.executeUpdate()
 
                 runOnUiThread {
