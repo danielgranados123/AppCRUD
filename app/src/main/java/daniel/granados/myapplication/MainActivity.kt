@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -53,16 +54,21 @@ class MainActivity : AppCompatActivity() {
                 addProducto.setString( 7, txtDescripcion.text.toString())
                 addProducto.setString( 8, txtEstado.text.toString())
                 addProducto.executeUpdate()
+
+                runOnUiThread {
+                    txtNombreAutor.text.clear()
+                    txtEmailAutor.text.clear()
+                    txtTitulo.text.clear()
+                    txtDescripcion.text.clear()
+                    txtFechaCreacion.text.clear()
+                    txtEstado.text.clear()
+                    txtFechaFinalizacion.text.clear()
+
+                    Toast.makeText(this@MainActivity, "Ticket guardado con éxito.", Toast.LENGTH_LONG).show()
+                }
                 }
 
 
-                //val nuevosProductos = obtenerDatos()
-                //creo una corrutina que actualice el listado
-
-                //withContext(Dispatchers.Main){
-                 //   (rcvTickets.adapter as? Adaptador)?.actualizarLista(nuevosProductos)
-
-                }
 
         val btnVerSolicitudes = findViewById<Button>(R.id.btnVerSolicitudes)
         btnVerSolicitudes.setOnClickListener {
@@ -71,5 +77,5 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             }
         }
-
+        }
     }

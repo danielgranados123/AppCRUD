@@ -9,6 +9,7 @@ import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
 import daniel.granados.myapplication.R
 import daniel.granados.myapplication.activity_detalle_tickets
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -20,6 +21,31 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val vista =            LayoutInflater.from(parent.context).inflate(R.layout.item_card, parent, false)
         return ViewHolder(vista)
+    }
+
+    fun actualizarTickets(nuevaLista:List<DataClassTickets>){
+        Datos=nuevaLista
+        notifyDataSetChanged()
+    }
+
+    fun eliminarTickets(numTicket: String, posicion: Int) {
+        val listaDatos = Datos.toMutableList()
+        listaDatos.removeAt(posicion)
+
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val objConexion = ClaseConexion().cadenaConexion()
+
+            val eliminarTicket = objConexion?.prepareStatement("delete from tbTickets where numTicket = ?")!!
+            eliminarTicket.setString(1, numTicket)
+            eliminarTicket.executeUpdate()
+
+            val commit = objConexion.prepareStatement( "commit")!!
+            commit.executeUpdate()
+        }
+        Datos=listaDatos.toList()
+        notifyItemRemoved(posicion)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount() = Datos.size
@@ -46,12 +72,12 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
                 builder.setTitle("¡Espera!")
 
                 //Ponemos el mensaje
-                builder.setMessage("¿Estás seguro de que deseas elimar tu solicitud?")
+                builder.setMessage("¿Estás seguro de que deseas eliminar el ticket?")
 
                 //Paso final, agregamos los botones
                 builder.setPositiveButton("Si"){
                         dialog, wich ->
-                    eliminarRegistro(item.titulo, position)
+                    eliminarTickets(item.titulo, position)
                 }
 
                 builder.setNegativeButton("No"){
@@ -72,14 +98,38 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
                 builder.setTitle("Editar título de la solicitud:")
 
                 //Agregamos cuadro de texto para que el usuario escriba el nuevo nombre
+                val cuadritoNuevoAutor = EditText(context)
+                cuadritoNuevoAutor.setHint(item.nombreAutor)
+                builder.setView(cuadritoNuevoAutor)
+
+                val cuadritoNuevoEmail = EditText(context)
+                cuadritoNuevoEmail.setHint(item.correoAutor)
+                builder.setView(cuadritoNuevoEmail)
+
                 val cuadritoNuevoTitulo = EditText(context)
                 cuadritoNuevoTitulo.setHint(item.titulo)
                 builder.setView(cuadritoNuevoTitulo)
 
+                val cuadritoNuevoDescripcion = EditText(context)
+                cuadritoNuevoDescripcion.setHint(item.descripcion)
+                builder.setView(cuadritoNuevoDescripcion)
+
+                val cuadritoNuevoFechaCreacion = EditText(context)
+                cuadritoNuevoFechaCreacion.setHint(item.fechaCreacion)
+                builder.setView(cuadritoNuevoFechaCreacion)
+
+                val cuadritoNuevoFechaFinalizacion = EditText(context)
+                cuadritoNuevoFechaFinalizacion.setHint(item.fechaFinalizacion)
+                builder.setView(cuadritoNuevoFechaFinalizacion)
+
+                val cuadritoNuevoEstado = EditText(context)
+                cuadritoNuevoEstado.setHint(item.estado)
+                builder.setView(cuadritoNuevoEstado)
+
                 //Paso final, agregamos los botones
                 builder.setPositiveButton("Actualizar"){
                         dialog, wich ->
-                    actualizarProducto(cuadritoNuevoTitulo.text.toString(), item.uuid)
+                    actualizarTickets(cuadritoNuevoAutor.text.toString(), item.uuid)
                 }
 
                 builder.setNegativeButton("Cancelar"){
@@ -112,66 +162,6 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
             context.startActivity(pantallaDetalles)
 
 
-        }
-    }
-
-    fun actualizarLista(nuevaLista: List<DataClassTickets>){
-
-        Datos = nuevaLista
-        notifyDataSetChanged()
-
-    }
-
-    fun eliminarRegistro(titulo : String, posicion: Int){
-
-        //Quitar el elemento de la lista
-        val listaDatos = Datos.toMutableList()
-        listaDatos.removeAt(posicion)
-
-        //Quitar de la base de datos
-        GlobalScope.launch(Dispatchers.IO){
-
-            //1- Crear objeto de la clase conexión
-            val objConexion = ClaseConexion().cadenaConexion()
-
-            val delProducto = objConexion?.prepareStatement("delete tbTickets where titulo = ?")!!
-            delProducto.setString(1, titulo)
-            delProducto.executeUpdate()
-
-            val commit = objConexion.prepareStatement("commit")!!
-            commit.executeUpdate()
-        }
-
-        Datos = listaDatos.toList()
-        notifyItemRemoved(posicion)
-        notifyDataSetChanged()
-
-    }
-
-    fun ActualizarListaDespuesDeActualizarDatos (uuid: String, nuevoTitulo: String){
-        val index = Datos.indexOfFirst { it.uuid == uuid }
-        Datos[index].titulo = nuevoTitulo
-        notifyItemChanged(index)
-    }
-
-    fun actualizarProducto(titulo: String, uuid: String){
-        //1-Creo una corrutina
-        GlobalScope.launch(Dispatchers.IO){
-            //1- Crear objeto de la clase conexión
-            val objConexion = ClaseConexion().cadenaConexion()
-
-            //2- Variable que contenga un prepareStatement
-            val updateTicket = objConexion?.prepareStatement("update tbProductos set nombreProducto = ? where uuid = ?")!!
-            updateTicket.setString(1, titulo)
-            updateTicket.setString(2, uuid)
-            updateTicket.executeUpdate()
-
-            val commit = objConexion.prepareStatement("commit")!!
-            commit.executeUpdate()
-
-            withContext(Dispatchers.Main){
-                ActualizarListaDespuesDeActualizarDatos(uuid, titulo)
-            }
         }
     }
 }
