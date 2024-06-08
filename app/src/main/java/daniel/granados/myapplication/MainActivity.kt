@@ -43,17 +43,17 @@ class MainActivity : AppCompatActivity() {
                 val claseConexion = ClaseConexion().cadenaConexion()
 
                 //2- Crear variable que contenga un PreparedStatement
-                val addProducto = claseConexion?.prepareStatement("insert into tbTickets(numTicket, titulo, descripcion, autor, emailAutor, fechaCreacion, estado, fechaFinalizacion) values(?, ?, ?, ?, ?, ?, ?, ?)")!!
+                val addTicket = claseConexion?.prepareStatement("insert into tbTickets(numTicket, titulo, descripcion, autor, emailAutor, fechaCreacion, estado, fechaFinalizacion) values(?, ?, ?, ?, ?, ?, ?, ?)")!!
 
-                addProducto.setString(1, UUID.randomUUID().toString())
-                addProducto.setString(2, txtNombreAutor.text.toString())
-                addProducto.setString(3, txtEmailAutor.text.toString())
-                addProducto.setString( 4, txtTitulo.text.toString())
-                addProducto.setString( 5, txtDescripcion.text.toString())
-                addProducto.setString( 6, txtFechaCreacion.text.toString())
-                addProducto.setString( 7, txtDescripcion.text.toString())
-                addProducto.setString( 8, txtEstado.text.toString())
-                addProducto.executeUpdate()
+                addTicket.setString(1, UUID.randomUUID().toString())
+                addTicket.setString(2, txtNombreAutor.text.toString())
+                addTicket.setString(3, txtEmailAutor.text.toString())
+                addTicket.setString( 4, txtTitulo.text.toString())
+                addTicket.setString( 5, txtDescripcion.text.toString())
+                addTicket.setString( 6, txtFechaCreacion.text.toString())
+                addTicket.setString( 7, txtDescripcion.text.toString())
+                addTicket.setString( 8, txtEstado.text.toString())
+                addTicket.executeUpdate()
 
                 runOnUiThread {
                     txtNombreAutor.text.clear()

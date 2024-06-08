@@ -56,7 +56,7 @@ class activity_registrarse : AppCompatActivity() {
                     //Creo un objeto de la clase conexion
                     val objConexion = ClaseConexion().cadenaConexion()
 
-                    if (txtContrasena == txtConfirmarContrasena) {
+                    //if (txtContrasena == txtConfirmarContrasena) {
                         //Creo una variable que contenga un PrepareStatement
                         val crearUsuario =
                             objConexion?.prepareStatement("INSERT INTO tbUsuarios (UUID_usuario, correoElectronico, clave) VALUES (?, ?, ?)")!!
@@ -75,17 +75,17 @@ class activity_registrarse : AppCompatActivity() {
                             txtContrasena.setText("")
                             txtConfirmarContrasena.setText("")
                         }
-                    }
-                    else{
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(
-                                this@activity_registrarse,
-                                "Las contraseñas no coinciden.",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                    //}
+                    //else{
+                        //withContext(Dispatchers.Main) {
+                            //Toast.makeText(
+                                //this@activity_registrarse,
+                               // "Las contraseñas no coinciden.",
+                               // Toast.LENGTH_SHORT
+                            //).show()
 
-                        }
-                }
+                        //}
+               // }
 
             }
         }
