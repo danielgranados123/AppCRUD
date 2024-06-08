@@ -23,10 +23,10 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
         return ViewHolder(vista)
     }
 
-    fun actualizarTickets(nuevaLista:List<DataClassTickets>){
+    /*fun actualizarTickets(nuevaLista:List<DataClassTickets>){
         Datos=nuevaLista
         notifyDataSetChanged()
-    }
+    }*/
 
     fun eliminarTickets(numTicket: String, posicion: Int) {
         val listaDatos = Datos.toMutableList()
@@ -49,6 +49,33 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
     }
 
     override fun getItemCount() = Datos.size
+
+    fun ActualizarListaDespuesDeActualizarDatos (uuid: String, nuevoNombre: String){
+        val index = Datos.indexOfFirst { it.uuid == uuid }
+        Datos[index].titulo = nuevoNombre
+        notifyItemChanged(index)
+    }
+
+    fun actualizarTickets(numTicket: String, uuid: String){
+        //1-Creo una corrutina
+        GlobalScope.launch(Dispatchers.IO){
+            //1- Crear objeto de la clase conexión
+            val objConexion = ClaseConexion().cadenaConexion()
+
+            //2- Variable que contenga un prepareStatement
+            val updateProducto = objConexion?.prepareStatement("update tbProductos set nombreProducto = ? where uuid = ?")!!
+            updateProducto.setString(1, numTicket)
+            updateProducto.setString(2, uuid)
+            updateProducto.executeUpdate()
+
+            val commit = objConexion.prepareStatement("commit")!!
+            commit.executeUpdate()
+
+            withContext(Dispatchers.Main){
+                ActualizarListaDespuesDeActualizarDatos(uuid, numTicket)
+            }
+        }
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ticket = Datos[position]
@@ -130,6 +157,12 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
                 builder.setPositiveButton("Actualizar"){
                         dialog, wich ->
                     actualizarTickets(cuadritoNuevoAutor.text.toString(), item.uuid)
+                    actualizarTickets(cuadritoNuevoEmail.text.toString(), item.uuid)
+                    actualizarTickets(cuadritoNuevoTitulo.text.toString(), item.uuid)
+                    actualizarTickets(cuadritoNuevoDescripcion.text.toString(), item.uuid)
+                    actualizarTickets(cuadritoNuevoFechaCreacion.text.toString(), item.uuid)
+                    actualizarTickets(cuadritoNuevoFechaFinalizacion.text.toString(), item.uuid)
+                    actualizarTickets(cuadritoNuevoEstado.text.toString(), item.uuid)
                 }
 
                 builder.setNegativeButton("Cancelar"){
@@ -157,6 +190,9 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
             pantallaDetalles.putExtra("emailAutor", item.correoAutor)
             pantallaDetalles.putExtra("titulo", item.titulo)
             pantallaDetalles.putExtra("descripcion", item.descripcion)
+            pantallaDetalles.putExtra("fechaCreacion", item.fechaCreacion)
+            pantallaDetalles.putExtra("fechaFinalizacion", item.fechaFinalizacion)
+            pantallaDetalles.putExtra("Estado", item.estado)
 
 
             context.startActivity(pantallaDetalles)
