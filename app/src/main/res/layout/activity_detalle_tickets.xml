@@ -39,7 +39,7 @@
         app:layout_constraintVertical_bias="0.059" />
 
     <TextView
-        android:id="@+id/txtNumTicket"
+        android:id="@+id/txtNumTicketD"
         android:layout_width="194dp"
         android:layout_height="31dp"
         android:fontFamily="@font/poppins_medium"
@@ -95,7 +95,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.373"
         app:layout_constraintStart_toEndOf="@+id/txtNumeroTicket"
-        app:layout_constraintTop_toBottomOf="@+id/txtNumTicket"
+        app:layout_constraintTop_toBottomOf="@+id/txtNumTicketD"
         app:layout_constraintVertical_bias="0.041" />
 
     <TextView
@@ -160,33 +160,33 @@
 
     <TextView
         android:id="@+id/txtDescripcionDetalle"
-        android:layout_width="190dp"
-        android:layout_height="237dp"
+        android:layout_width="195dp"
+        android:layout_height="169dp"
         android:fontFamily="@font/poppins_medium"
         android:text="TextView"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.354"
+        app:layout_constraintHorizontal_bias="0.364"
         app:layout_constraintStart_toEndOf="@+id/txtNumeroTicket"
         app:layout_constraintTop_toBottomOf="@+id/txtTituloDetalle"
-        app:layout_constraintVertical_bias="0.226" />
+        app:layout_constraintVertical_bias="0.148" />
 
     <TextView
-        android:id="@+id/txtFechaD"
-        android:layout_width="wrap_content"
+        android:id="@+id/txtFechaFDetalle"
+        android:layout_width="194dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Fecha"
+        android:fontFamily="@font/poppins_medium"
+        android:text="TextView"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.242"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.915" />
+        app:layout_constraintHorizontal_bias="0.426"
+        app:layout_constraintStart_toEndOf="@+id/txtNumeroTicket"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmailDetalle"
+        app:layout_constraintVertical_bias="0.816" />
 
     <TextView
         android:id="@+id/txtFechaDetalle"
@@ -198,10 +198,85 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.373"
+        app:layout_constraintHorizontal_bias="0.386"
         app:layout_constraintStart_toEndOf="@+id/txtNumeroTicket"
         app:layout_constraintTop_toBottomOf="@+id/txtEmailDetalle"
-        app:layout_constraintVertical_bias="0.915" />
+        app:layout_constraintVertical_bias="0.698" />
+
+    <TextView
+        android:id="@+id/txtFechaD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Creación"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.698" />
+
+    <TextView
+        android:id="@+id/txtFechaFD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Finalización"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.816" />
+
+    <TextView
+        android:id="@+id/txtEstadoD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Creación"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.698" />
+
+    <TextView
+        android:id="@+id/txtEstadoD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Estado"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.229"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.927" />
+
+    <TextView
+        android:id="@+id/txtEstadoDetalle"
+        android:layout_width="194dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.426"
+        app:layout_constraintStart_toEndOf="@+id/txtNumeroTicket"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmailDetalle"
+        app:layout_constraintVertical_bias="0.927" />
 
     <ImageView
         android:id="@+id/imgAtras"

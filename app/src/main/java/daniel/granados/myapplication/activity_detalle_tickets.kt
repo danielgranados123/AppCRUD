@@ -26,14 +26,20 @@ class activity_detalle_tickets : AppCompatActivity() {
         val txtEmailDetalle = findViewById<TextView>(R.id.txtEmailDetalle)
         val txtTituloDetalle = findViewById<TextView>(R.id.txtTituloDetalle)
         val txtDescripcionDetalle = findViewById<TextView>(R.id.txtDescripcionDetalle)
+        val txtNumTicketDetalle = findViewById<TextView>(R.id.txt)
+
         val imgAtras = findViewById<ImageView>(R.id.imgAtras)
 
         //2- Recibir los valores
 
         val nombreDetalle = intent.getStringExtra("nombreAutor")
+        val numTicket = intent.getStringExtra("numTicket")
         val emailDetalle = intent.getStringExtra("emailAutor")
         val tituloDetalle = intent.getStringExtra("titulo")
         val descripcionDetalle = intent.getStringExtra("descripcion")
+        val fechaCreacion = intent.getStringExtra("fechaCreacion")
+        val fechaFinalizacion = intent.getStringExtra("fechaFinalizacion")
+        val estado = intent.getStringExtra("estado")
 
         //3- Poner los valores recibidos en el textView
 
