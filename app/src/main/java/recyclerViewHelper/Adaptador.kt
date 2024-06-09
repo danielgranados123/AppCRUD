@@ -24,7 +24,7 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
         return ViewHolder(vista)
     }
 
-    fun actualizarTickets(nuevaLista:List<DataClassTickets>){
+    fun actualizarListaTickets(nuevaLista:List<DataClassTickets>){
         Datos=nuevaLista
         notifyDataSetChanged()
     }
@@ -60,7 +60,7 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
             val objConexion = ClaseConexion().cadenaConexion()
 
             //2- Variable que contenga un prepareStatement
-            val updateProducto = objConexion?.prepareStatement("update tbTickets set nombreProducto = ? where numTicket = ?")!!
+            val updateProducto = objConexion?.prepareStatement("update tbTickets set titulo = ? where numTicket = ?")!!
             updateProducto.setString(1, numTicket)
             updateProducto.setString(2, titulo)
             updateProducto.executeUpdate()
