@@ -49,27 +49,27 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
 
     fun ActualizarListaDespuesDeActualizarDatos (uuid: String, nuevoNombre: String){
         val index = Datos.indexOfFirst { it.uuid == uuid }
-        Datos[index].titulo = nuevoNombre
+        Datos[index].estado = nuevoNombre
         notifyItemChanged(index)
     }
 
-    fun actualizarTickets(titulo: String, numTicket: String){
+    fun actualizarTickets(estado: String, uuid: String){
         //1-Creo una corrutina
         GlobalScope.launch(Dispatchers.IO){
             //1- Crear objeto de la clase conexión
             val objConexion = ClaseConexion().cadenaConexion()
 
             //2- Variable que contenga un prepareStatement
-            val updateProducto = objConexion?.prepareStatement("update tbTickets set titulo = ? where numTicket = ?")!!
-            updateProducto.setString(1, numTicket)
-            updateProducto.setString(2, titulo)
+            val updateProducto = objConexion?.prepareStatement("update tbTickets set estado = ? where numTicket = ?")!!
+            updateProducto.setString(1, estado)
+            updateProducto.setString(2, uuid)
             updateProducto.executeUpdate()
 
             val commit = objConexion.prepareStatement("commit")!!
             commit.executeUpdate()
 
             withContext(Dispatchers.Main){
-                ActualizarListaDespuesDeActualizarDatos(numTicket, titulo)
+                ActualizarListaDespuesDeActualizarDatos(uuid, estado)
             }
         }
     }
@@ -122,67 +122,24 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
 
                 val context = holder.itemView.context
 
-                // Crear el AlertDialog
+                //Crear alerta
+
                 val builder = AlertDialog.Builder(context)
-                builder.setTitle("Editar la solicitud:")
+                builder.setTitle("Editar estado del ticket:")
 
-                // Crear un LinearLayout para contener los campos de texto
-                val layout = LinearLayout(context)
-                layout.orientation = LinearLayout.VERTICAL
-                layout.setPadding(16, 20, 16, 20)
-
-                // Agregar campos de texto al LinearLayout
-                val cuadritoNuevoAutor = EditText(context)
-                cuadritoNuevoAutor.setHint(item.nombreAutor)
-                layout.addView(cuadritoNuevoAutor)
-
-                val cuadritoNuevoEmail = EditText(context)
-                cuadritoNuevoEmail.setHint(item.correoAutor)
-                layout.addView(cuadritoNuevoEmail)
-
-                val cuadritoNuevoTitulo = EditText(context)
-                cuadritoNuevoTitulo.setHint(item.titulo)
-                layout.addView(cuadritoNuevoTitulo)
-
-                val cuadritoNuevoDescripcion = EditText(context)
-                cuadritoNuevoDescripcion.setHint(item.descripcion)
-                layout.addView(cuadritoNuevoDescripcion)
-
-                val cuadritoNuevoFechaCreacion = EditText(context)
-                cuadritoNuevoFechaCreacion.setHint(item.fechaCreacion)
-                layout.addView(cuadritoNuevoFechaCreacion)
-
-                val cuadritoNuevoFechaFinalizacion = EditText(context)
-                cuadritoNuevoFechaFinalizacion.setHint(item.fechaFinalizacion)
-                layout.addView(cuadritoNuevoFechaFinalizacion)
-
-                val cuadritoNuevoEstado = EditText(context)
-                cuadritoNuevoEstado.setHint(item.estado)
-                layout.addView(cuadritoNuevoEstado)
-
-                builder.setView(layout)
+                //Agregamos cuadro de texto para que el usuario escriba el nuevo nombre
+                val cuadritoNuevoNombre = EditText(context)
+                cuadritoNuevoNombre.setHint(item.estado)
+                builder.setView(cuadritoNuevoNombre)
 
                 //Paso final, agregamos los botones
-                builder.setPositiveButton("Actualizar") { dialog, _ ->
-                    val nuevoAutor = cuadritoNuevoAutor.text.toString()
-                    val nuevoEmail = cuadritoNuevoEmail.text.toString()
-                    val nuevoTitulo = cuadritoNuevoTitulo.text.toString()
-                    val nuevaDescripcion = cuadritoNuevoDescripcion.text.toString()
-                    val nuevaFechaCreacion = cuadritoNuevoFechaCreacion.text.toString()
-                    val nuevaFechaFinalizacion = cuadritoNuevoFechaFinalizacion.text.toString()
-                    val nuevoEstado = cuadritoNuevoEstado.text.toString()
-
-                    // Actualizar cada campo por separado
-                    actualizarTickets(nuevoAutor, item.uuid)
-                    actualizarTickets(nuevoEmail, item.uuid)
-                    actualizarTickets(nuevoTitulo, item.uuid)
-                    actualizarTickets(nuevaDescripcion, item.uuid)
-                    actualizarTickets(nuevaFechaCreacion, item.uuid)
-                    actualizarTickets(nuevaFechaFinalizacion, item.uuid)
-                    actualizarTickets(nuevoEstado, item.uuid)
+                builder.setPositiveButton("Actualizar"){
+                        dialog, wich ->
+                    actualizarTickets(cuadritoNuevoNombre.text.toString(), item.uuid)
                 }
 
-                builder.setNegativeButton("Cancelar") { dialog, _ ->
+                builder.setNegativeButton("Cancelar"){
+                        dialog, wich ->
                     dialog.dismiss()
                 }
 
@@ -190,6 +147,7 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
                 alertDialog.show()
             }
         }
+
 
         //Darle clic a la card
         holder.itemView.setOnClickListener {
@@ -203,6 +161,7 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
 
             //Aqui, antes de abrir la nueva pantalla le mando los parametros
             pantallaDetalles.putExtra("nombreAutor", item.nombreAutor)
+            pantallaDetalles.putExtra("numTicket", item.uuid)
             pantallaDetalles.putExtra("emailAutor", item.correoAutor)
             pantallaDetalles.putExtra("titulo", item.titulo)
             pantallaDetalles.putExtra("descripcion", item.descripcion)

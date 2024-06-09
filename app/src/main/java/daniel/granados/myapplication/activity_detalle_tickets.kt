@@ -42,7 +42,7 @@ class activity_detalle_tickets : AppCompatActivity() {
         val descripcionDetalle = intent.getStringExtra("descripcion")
         val fechaCreacion = intent.getStringExtra("fechaCreacion")
         val fechaFinalizacion = intent.getStringExtra("fechaFinalizacion")
-        val estado = intent.getStringExtra("estado")
+        val estado = intent.getStringExtra("Estado")
 
         //3- Poner los valores recibidos en el textView
 
