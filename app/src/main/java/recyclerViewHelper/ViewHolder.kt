@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import daniel.granados.myapplication.R
 
 class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val textView: TextView = view.findViewById(R.id.txtTicketCard)
+    val txtProblema = view.findViewById<TextView>(R.id.txtProblemaCard)
+    val txtAutor = view.findViewById<TextView>(R.id.txtAutorCard)
 
     val imgEditar: ImageView = view.findViewById(R.id.imgEditar)
     val imgBorrar: ImageView = view.findViewById(R.id.imgBorrar)

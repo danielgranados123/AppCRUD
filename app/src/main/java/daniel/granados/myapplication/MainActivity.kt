@@ -26,6 +26,12 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        val btnVerSolicitudes = findViewById<Button>(R.id.btnVerSolicitudes)
+        btnVerSolicitudes.setOnClickListener {
+            val intent = Intent(this, activity_solicitudes::class.java)
+            startActivity(intent)
+        }
+
         val txtNombreAutor = findViewById<EditText>(R.id.txtNombreAutor)
         val txtEmailAutor = findViewById<EditText>(R.id.txtEmailAutor)
         val txtTitulo = findViewById<EditText>(R.id.txtTitulo)
@@ -67,15 +73,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this@MainActivity, "Ticket guardado con éxito.", Toast.LENGTH_LONG).show()
                 }
                 }
-
-
-
-        val btnVerSolicitudes = findViewById<Button>(R.id.btnVerSolicitudes)
-        btnVerSolicitudes.setOnClickListener {
-
-            val intent = Intent(this, activity_solicitudes::class.java)
-            startActivity(intent)
-            }
         }
+
         }
     }

@@ -6,6 +6,7 @@ import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import daniel.granados.myapplication.R
 import daniel.granados.myapplication.activity_detalle_tickets
@@ -23,28 +24,24 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
         return ViewHolder(vista)
     }
 
-    /*fun actualizarTickets(nuevaLista:List<DataClassTickets>){
+    fun actualizarTickets(nuevaLista:List<DataClassTickets>){
         Datos=nuevaLista
         notifyDataSetChanged()
-    }*/
+    }
 
-    fun eliminarTickets(numTicket: String, posicion: Int) {
-        val listaDatos = Datos.toMutableList()
-        listaDatos.removeAt(posicion)
-
-
+    fun eliminarTickets(numTicket: String, position: Int) {
+        val listaDatos = Datos .toMutableList()
+        listaDatos.removeAt(position)
         CoroutineScope(Dispatchers.IO).launch {
             val objConexion = ClaseConexion().cadenaConexion()
-
-            val eliminarTicket = objConexion?.prepareStatement("delete from tbTickets where numTicket = ?")!!
-            eliminarTicket.setString(1, numTicket)
-            eliminarTicket.executeUpdate()
-
+            val borrarTicket = objConexion?.prepareStatement("delete from tbTickets where numTicket = ?")!!
+            borrarTicket.setString(1, numTicket)
+            borrarTicket.executeUpdate()
             val commit = objConexion.prepareStatement( "commit")!!
             commit.executeUpdate()
         }
         Datos=listaDatos.toList()
-        notifyItemRemoved(posicion)
+        notifyItemRemoved(position)
         notifyDataSetChanged()
     }
 
@@ -56,30 +53,36 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
         notifyItemChanged(index)
     }
 
-    fun actualizarTickets(numTicket: String, uuid: String){
+    fun actualizarTickets(titulo: String, numTicket: String){
         //1-Creo una corrutina
         GlobalScope.launch(Dispatchers.IO){
             //1- Crear objeto de la clase conexión
             val objConexion = ClaseConexion().cadenaConexion()
 
             //2- Variable que contenga un prepareStatement
-            val updateProducto = objConexion?.prepareStatement("update tbProductos set nombreProducto = ? where uuid = ?")!!
+            val updateProducto = objConexion?.prepareStatement("update tbTickets set nombreProducto = ? where numTicket = ?")!!
             updateProducto.setString(1, numTicket)
-            updateProducto.setString(2, uuid)
+            updateProducto.setString(2, titulo)
             updateProducto.executeUpdate()
 
             val commit = objConexion.prepareStatement("commit")!!
             commit.executeUpdate()
 
             withContext(Dispatchers.Main){
-                ActualizarListaDespuesDeActualizarDatos(uuid, numTicket)
+                ActualizarListaDespuesDeActualizarDatos(numTicket, titulo)
             }
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ticket = Datos[position]
-        holder.textView.text = ticket.titulo
+        holder.txtProblema.text = ticket.titulo
+        holder.txtAutor.text = ticket.nombreAutor
+        /*holder.textView.text = ticket.nombreAutor
+        holder.textView.text = ticket.correoAutor
+        holder.textView.text = ticket.fechaCreacion
+        holder.textView.text = ticket.estado
+        holder.textView.text = ticket.fechaFinalizacion*/
 
         val item = Datos[position]
         holder.imgBorrar.setOnClickListener {
@@ -104,7 +107,7 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
                 //Paso final, agregamos los botones
                 builder.setPositiveButton("Si"){
                         dialog, wich ->
-                    eliminarTickets(item.titulo, position)
+                    eliminarTickets(item.uuid, position)
                 }
 
                 builder.setNegativeButton("No"){
@@ -119,54 +122,67 @@ class Adaptador(private var Datos: List<DataClassTickets>) : RecyclerView.Adapte
 
                 val context = holder.itemView.context
 
-                //Crear alerta
-
+                // Crear el AlertDialog
                 val builder = AlertDialog.Builder(context)
-                builder.setTitle("Editar título de la solicitud:")
+                builder.setTitle("Editar la solicitud:")
 
-                //Agregamos cuadro de texto para que el usuario escriba el nuevo nombre
+                // Crear un LinearLayout para contener los campos de texto
+                val layout = LinearLayout(context)
+                layout.orientation = LinearLayout.VERTICAL
+                layout.setPadding(16, 20, 16, 20)
+
+                // Agregar campos de texto al LinearLayout
                 val cuadritoNuevoAutor = EditText(context)
                 cuadritoNuevoAutor.setHint(item.nombreAutor)
-                builder.setView(cuadritoNuevoAutor)
+                layout.addView(cuadritoNuevoAutor)
 
                 val cuadritoNuevoEmail = EditText(context)
                 cuadritoNuevoEmail.setHint(item.correoAutor)
-                builder.setView(cuadritoNuevoEmail)
+                layout.addView(cuadritoNuevoEmail)
 
                 val cuadritoNuevoTitulo = EditText(context)
                 cuadritoNuevoTitulo.setHint(item.titulo)
-                builder.setView(cuadritoNuevoTitulo)
+                layout.addView(cuadritoNuevoTitulo)
 
                 val cuadritoNuevoDescripcion = EditText(context)
                 cuadritoNuevoDescripcion.setHint(item.descripcion)
-                builder.setView(cuadritoNuevoDescripcion)
+                layout.addView(cuadritoNuevoDescripcion)
 
                 val cuadritoNuevoFechaCreacion = EditText(context)
                 cuadritoNuevoFechaCreacion.setHint(item.fechaCreacion)
-                builder.setView(cuadritoNuevoFechaCreacion)
+                layout.addView(cuadritoNuevoFechaCreacion)
 
                 val cuadritoNuevoFechaFinalizacion = EditText(context)
                 cuadritoNuevoFechaFinalizacion.setHint(item.fechaFinalizacion)
-                builder.setView(cuadritoNuevoFechaFinalizacion)
+                layout.addView(cuadritoNuevoFechaFinalizacion)
 
                 val cuadritoNuevoEstado = EditText(context)
                 cuadritoNuevoEstado.setHint(item.estado)
-                builder.setView(cuadritoNuevoEstado)
+                layout.addView(cuadritoNuevoEstado)
+
+                builder.setView(layout)
 
                 //Paso final, agregamos los botones
-                builder.setPositiveButton("Actualizar"){
-                        dialog, wich ->
-                    actualizarTickets(cuadritoNuevoAutor.text.toString(), item.uuid)
-                    actualizarTickets(cuadritoNuevoEmail.text.toString(), item.uuid)
-                    actualizarTickets(cuadritoNuevoTitulo.text.toString(), item.uuid)
-                    actualizarTickets(cuadritoNuevoDescripcion.text.toString(), item.uuid)
-                    actualizarTickets(cuadritoNuevoFechaCreacion.text.toString(), item.uuid)
-                    actualizarTickets(cuadritoNuevoFechaFinalizacion.text.toString(), item.uuid)
-                    actualizarTickets(cuadritoNuevoEstado.text.toString(), item.uuid)
+                builder.setPositiveButton("Actualizar") { dialog, _ ->
+                    val nuevoAutor = cuadritoNuevoAutor.text.toString()
+                    val nuevoEmail = cuadritoNuevoEmail.text.toString()
+                    val nuevoTitulo = cuadritoNuevoTitulo.text.toString()
+                    val nuevaDescripcion = cuadritoNuevoDescripcion.text.toString()
+                    val nuevaFechaCreacion = cuadritoNuevoFechaCreacion.text.toString()
+                    val nuevaFechaFinalizacion = cuadritoNuevoFechaFinalizacion.text.toString()
+                    val nuevoEstado = cuadritoNuevoEstado.text.toString()
+
+                    // Actualizar cada campo por separado
+                    actualizarTickets(nuevoAutor, item.uuid)
+                    actualizarTickets(nuevoEmail, item.uuid)
+                    actualizarTickets(nuevoTitulo, item.uuid)
+                    actualizarTickets(nuevaDescripcion, item.uuid)
+                    actualizarTickets(nuevaFechaCreacion, item.uuid)
+                    actualizarTickets(nuevaFechaFinalizacion, item.uuid)
+                    actualizarTickets(nuevoEstado, item.uuid)
                 }
 
-                builder.setNegativeButton("Cancelar"){
-                        dialog, wich ->
+                builder.setNegativeButton("Cancelar") { dialog, _ ->
                     dialog.dismiss()
                 }
 
