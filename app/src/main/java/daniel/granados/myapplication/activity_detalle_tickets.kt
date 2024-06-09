@@ -26,7 +26,10 @@ class activity_detalle_tickets : AppCompatActivity() {
         val txtEmailDetalle = findViewById<TextView>(R.id.txtEmailDetalle)
         val txtTituloDetalle = findViewById<TextView>(R.id.txtTituloDetalle)
         val txtDescripcionDetalle = findViewById<TextView>(R.id.txtDescripcionDetalle)
-        val txtNumTicketDetalle = findViewById<TextView>(R.id.txt)
+        val txtNumTicketDetalle = findViewById<TextView>(R.id.txtNumTicketD)
+        val txtFechaC = findViewById<TextView>(R.id.txtFechaDetalle)
+        val txtFechaF = findViewById<TextView>(R.id.txtFechaFDetalle)
+        val txtEstado = findViewById<TextView>(R.id.txtEstadoDetalle)
 
         val imgAtras = findViewById<ImageView>(R.id.imgAtras)
 
@@ -47,9 +50,13 @@ class activity_detalle_tickets : AppCompatActivity() {
         txtEmailDetalle.text = emailDetalle
         txtTituloDetalle.text = tituloDetalle
         txtDescripcionDetalle.text = descripcionDetalle
+        txtFechaC.text = fechaCreacion
+        txtFechaF.text = fechaFinalizacion
+        txtEstado.text = estado
+        txtNumTicketDetalle.text = numTicket
 
         imgAtras.setOnClickListener{
-            val pantallaAtras = Intent(this, MainActivity::class.java)
+            val pantallaAtras = Intent(this, activity_solicitudes::class.java)
             startActivity(pantallaAtras)
         }
     }
